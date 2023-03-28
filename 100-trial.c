@@ -18,7 +18,7 @@ binary_tree_t *binary_tree_sibling(binary_tree_t *node)
 		return (temp->right);
 	if (temp->right == node && temp->left != NULL)
 		return (temp->left);
-	return (NULL);
+        return (NULL);
 }
 
 /**
@@ -34,4 +34,35 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node)
 		return (NULL);
 	tmp = binary_tree_sibling(node->parent);
 	return (tmp);
+}
+
+/**
+  * binary_trees_ancestor - a function that finds the lowest common ancestor
+  * of two nodes
+  * @first: pointer to the first node
+  * @second: pointer to the second node
+  * Return: pointer to the lowest common ancestor node of the two given nodes
+  * otherwise return NULL
+  */
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
+{
+	binary_tree_t *tmp;
+
+	if (first == NULL && second == NULL)
+		return (NULL);
+	if (first->parent == second->parent)
+		return (first->parent);
+	if (first->parent == binary_tree_sibling(second->parent))
+		return (first->parent->parent);
+	if (first->parent == second)
+	{
+		tmp = second;
+		return (tmp);
+	}
+	if (first == second->parent)
+	{
+		tmp = first;
+		return (tmp);
+	}
+	return (NULL);
 }
